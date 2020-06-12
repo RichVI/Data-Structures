@@ -1,3 +1,5 @@
+from sll_queue import Queue
+from sll_stack import Stack
 """
 Binary search trees are a data structure that enforce an ordering over 
 the data they store. That ordering in turn makes it a lot more efficient 
@@ -64,24 +66,46 @@ class BSTNode:
         if self.left:
             self.left.for_each(fn)
         if self.right:
-            self.right.for_each(fn)
+            self.right.for_each(fn) 
 
     # Part 2 -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        if node.left is not None:
+            self.in_order_print(node.left)
+        print(node.value)
+        if node.right is not None:
+            self.in_order_print(node.right)
+        return
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        queue = Queue()                 
+        queue.enqueue(node)             
+        while queue.__len__() > 0:                
+            popped = queue.dequeue()                              
+            print(popped.value)   
+            if popped.left:                          
+                queue.enqueue(popped.left)
+            if popped.right:                                       
+                queue.enqueue(popped.right)
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        stack = Stack()                                           
+        stack.push(node)                              
+        while stack.__len__() > 0:                               
+            popped = stack.pop()                              
+            print(popped.value)                  
+            if popped.left:                                       
+                stack.push(popped.left)
+            if popped.right:                                        
+                stack.push(popped.right)
 
     # Stretch Goals -------------------------
     # Note: Research may be required
